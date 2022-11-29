@@ -1,0 +1,55 @@
+<% layout('/layouts/boilerplate')%>
+<!-- <h3><a href="#down">Go Down</a></h3> -->
+<div id="cluster-map"></div>
+<h1>All Restaurants</h1>
+<!-- <div>
+  <a href="/restaurants/new">Add Restaurant</a>
+</div> -->
+
+<% for(let restaurant of restaurants){%>
+<div class="card mb-3">
+  <div class="row">
+    <div class="col-md-4">
+      <% if(restaurant.images.length){%>
+      <img class="img-fluid" alt="" src="<%=restaurant.images[0].url%>" />
+      <% } else{%>
+      <img
+        class="img-fluid"
+        alt=""
+        src="https://res.cloudinary.com/dragonmas-cloud/image/upload/v1652365298/YelpCamp/wgl4ys0kvipfdur4fvct.png"
+      />
+      <% } %>
+    </div>
+    <div class="col-md-8">
+      <div class="card-body">
+        <h5 class="card-title"><%=restaurant.title%></h5>
+        <p class="card-text"><%=restaurant.description%></p>
+        <p class="card-text">
+          <small class="text-muted"><%=restaurant.location%></small>
+        </p>
+        <a class="btn btn-primary" href="/restaurants/<%=restaurant._id%>"
+          >View <%=restaurant.title%></a
+        >
+      </div>
+    </div>
+  </div>
+</div>
+<%}%>
+
+<!-- icons -->
+<a href="#" class="back-to-top">
+  <i class="bi bi-arrow-up-circle-fill"></i>
+</a>
+<!-- icons -->
+<!-- icons -->
+<a href="#down" class="go-down">
+  <i class="bi bi-arrow-down-circle-fill"></i>
+</a>
+<!-- icons -->
+
+<script>
+  const mapToken = "<%-process.env.MAPBOX_TOKEN%>";
+  const restaurants = {features:<%-JSON.stringify(restaurants)%>}
+</script>
+
+<script src="/javascripts/clusterMap.js"></script>
